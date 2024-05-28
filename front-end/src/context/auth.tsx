@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
-import api from "../lib/axios";
 import { addDays, compareDesc } from "date-fns";
+import axios, { AxiosError } from "axios";
+import { toast } from "sonner";
 
 export interface AuthContextProps {
   auth: boolean;
@@ -33,7 +34,7 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
   }
   async function login(formData: { email: string; name: string }) {
     const date = new Date();
-    const { data } = await api.post("/user/login", {
+    const { data } = await axios.post("/api/user/login", {
       email: formData.email,
       name: formData.name,
     });
@@ -51,13 +52,19 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
     setAuth(true);
   }
   async function register(formData: { email: string; name: string }) {
-    const { data } = await api.post("/user", {
-      email: formData.email,
-      name: formData.name,
-    });
-    console.log(data);
+    try {
+      const { data } = await axios.post("/api/user", {
+        email: formData.email,
+        name: formData.name,
+      });
+      console.log(data);
+      return toast.success("Usuário cadastrado com sucesso!")
+    } catch (error) {
+      if(error instanceof AxiosError){
+        return toast.error(error.message)
+      }
+    }
 
-    // const token = await localStorage.setItem("java-token", )
   }
 
   return (

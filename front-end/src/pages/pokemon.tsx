@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "../lib/axios";
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 
 interface PokemonData {
@@ -20,7 +19,7 @@ function Pokemon() {
   }, []);
   async function getPokemon(ref: string) {
     try {
-      const { data } = await api.get("/pokemon", {
+      const { data } = await axios.get("/api/pokemon", {
         params: {
           ref,
         },

@@ -54,6 +54,14 @@ function Register() {
             </button>
           </div>
         </form>
+        <div>
+          <a
+            href="/"
+            className="hover:text-lime-400 transition-all duration-200 ease-in-out"
+          >
+            Voltar
+          </a>
+        </div>
       </div>
     </div>
   );

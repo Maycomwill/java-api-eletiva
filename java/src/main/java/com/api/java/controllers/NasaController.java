@@ -21,7 +21,7 @@ import java.net.URL;
 public class NasaController {
 
     @GetMapping
-    public ResponseEntity<String> getNasaPicture() {
+    public ResponseEntity<APOD> getNasaPicture() {
 
         // Create a neat value object to hold the URL
         URL url = null;
@@ -60,7 +60,7 @@ public class NasaController {
         }
 
 
-        return ResponseEntity.status(HttpStatus.OK).body(apod.getHdurl());
+        return ResponseEntity.status(HttpStatus.OK).body(apod);
     }
 
 }
